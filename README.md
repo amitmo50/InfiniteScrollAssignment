@@ -1,8 +1,12 @@
 # IronsourceAssignment
 
-This Assignment waas my first angular project. The purpose is to implement Infinite Scroll that fetch data from a fake server, in each time the user is scrolling to the end of the page a AJAX request is fired and the next page of data being loaded to a table.
-In this project I've also use Angular Route to let the user navigate between landing page and the infinite scroll page.
-Feature: checkbox switch to shuffle between Dark Mode and Light Mode. 
+This Assignment was my first angular project. The purpose was to implement Infinite Scroll that fetch data from a fake server, in each time the user scrolling to the end of the page an AJAX request is fired and the next page of data being loaded and appended to the table element.
+In this project I've also use Angular Route to let the user navigate between landing page(shows my full name and email) and the infinite scroll page (which has the table element with the infinte scroll and a filter search bar on top).
+
+## Implemented feature: 
+1. Checkbox switch to shuffle between Dark Mode and Light Mode. 
+2. Deploy the project on Heroku.
+3. Some CSS animation when elements entering the page.
 
 ## Landing Page:
 Dark Mode-
@@ -20,3 +24,7 @@ Light Mode-
 ## Deployed version:
 
 https://angular-infinite-scroll-app.herokuapp.com/
+
+
+## Dev
+In order use the code, clone the repo and install all the dependencies in Angular.json then run "ng serve" to build the project and serve it on "localhost:4200".
