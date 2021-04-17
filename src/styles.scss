@@ -1,0 +1,21 @@
+:root {
+    --primary-color: #7579e7;
+    --background-color: #fff;
+    --text-color: #2d2d2d;
+    --card-color: rgba(208, 208, 231, 0.712);
+    --border-color: #000;
+}
+
+* {
+    font-family: 'Lobster', cursive;
+}
+html, body { height: 100%; }
+html {font-size: 62.5%;}
+body { 
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0; 
+    box-sizing: border-box; 
+    font-weight: 400;
+    font-size: 1.6rem;
+}

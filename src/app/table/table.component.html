@@ -1,0 +1,28 @@
+<div class="table-display">
+  <div class="input-container">
+    <input class="search-input" #input placeholder="Search By First Name" type="text"/>
+  </div>
+  <cdk-virtual-scroll-viewport #scroller itemSize="72" class="content">
+    <div class="table-container">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Picture</th>
+          </tr>
+        </thead>
+        <tbody class="table-body" *cdkVirtualFor="let item of listItems">
+          <tr>
+            <td class="first-name-column"><span>{{item.firstName}}</span></td>
+            <td class="last-name-column"><span>{{item.lastName}}</span></td>
+            <td class="email-column"><span>{{item.email}}</span></td>
+            <td class="picture-column"><span><img class="user-pic" src={{item.picture}} alt={{item.lastName}}/></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div> 
+    <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+  </cdk-virtual-scroll-viewport>
+</div>

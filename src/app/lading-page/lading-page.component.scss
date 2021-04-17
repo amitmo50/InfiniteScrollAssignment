@@ -1,0 +1,93 @@
+.landing-content {
+    text-align: center;
+    margin: 3rem;
+    display: flex;
+    justify-content: center;
+    .landing-card{
+        border: #000 2px solid;
+        border-radius: 3rem;
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+        width: 50%;
+        margin: 3rem;
+        background-color: var(--card-color);
+        animation: moveInRight 1s ease-out;
+        .name, .email {
+            font-weight: 700;
+            font-size: 4rem;
+            margin: 2rem;
+            color: var(--text-color);
+            animation: moveInLeft 1s ease-in;
+            font-family: 'Lobster', cursive;
+        }
+        .description {
+            font-weight: 400;
+            font-size: 3rem;
+            margin: 0 0 2rem 0;
+            animation: moveInBottom 1s ease-out;
+            font-family: 'Lobster', cursive;
+        }
+        .company-icon {
+            width: 30rem;
+            animation: moveInTop 1s ease-out;
+        }
+        &:hover {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);  
+        }
+    }
+    
+}
+
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+    80% {
+        transform: translateX(1rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+    80% {
+        transform: translateX(-1rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(10rem);
+        
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-10rem);
+        
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}

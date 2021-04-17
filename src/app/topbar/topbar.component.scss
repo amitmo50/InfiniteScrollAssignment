@@ -1,0 +1,22 @@
+
+.topbar {
+    margin: 0;
+    height: 4rem;
+    border: 1px solid rgba(85, 85, 85, 0.801);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    position: relative;
+    .logo {
+        height: 2rem;
+        margin: 1rem;
+        color: var(--text-color);
+    }
+    .text-box {
+        text-align: center;
+    }
+    .theme-control {
+        position: absolute;
+        left: calc(100vw - 10%);
+    }
+}
+

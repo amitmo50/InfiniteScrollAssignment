@@ -1,0 +1,13 @@
+<mat-drawer-container class="container">
+    <mat-drawer class="side-navbar" mode="side" opened>
+        <div class="sidebar-content">
+            <span class="route-table">Pagination Table</span>
+            <hr>
+            <span routerLink="/about" class="dashboard">Dashboard Table</span>
+            <span routerLink="/infiniteScroll" class="scroller">Infinite Scroll Table</span>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content class="content">
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

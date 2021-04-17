@@ -1,0 +1,70 @@
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    animation: moveInRight 1s ease-out;
+    .table {
+        margin: 2rem 0;
+        width: 95%;
+        .user-pic {
+            width: 4rem;
+        } 
+    }
+    .first-name-column, .last-name-column, .email-column, .picture-column {
+        text-align: center;
+    }
+    
+}
+
+.table-display{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .content {
+        height: calc(100vh - 100px);
+        overflow: scroll;
+    }
+    .input-container {
+        display: flex;
+        justify-content: center;
+        margin: 0.5rem;
+        .search-input {
+            width: 40%;
+            font-size: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 0.9rem;
+            &:focus {
+                outline: none;
+            }
+
+        }
+    }
+}
+
+td,
+th {
+  width: 4rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+th {
+  background: var(--primary-color);
+  border-color: white;
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(30rem);
+    }
+    80% {
+        transform: translateX(-5rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
