@@ -9,3 +9,14 @@ Dark Mode-
 ![alt text](https://github.com/amitmo50/InfiniteScrollAssignment/blob/main/darkmode.png?raw=true)
 Light Mode-
 ![alt text](https://github.com/amitmo50/InfiniteScrollAssignment/blob/main/lightmode.png?raw=true)
+
+## Infinit Scroll Page:
+Dark Mode-
+![alt text](https://github.com/amitmo50/InfiniteScrollAssignment/blob/main/tableDarkMode.png?raw=true)
+Light Mode-
+![alt text](https://github.com/amitmo50/InfiniteScrollAssignment/blob/main/tableLightMode.png?raw=true)
+
+
+## Deployed version:
+
+https://angular-infinite-scroll-app.herokuapp.com/

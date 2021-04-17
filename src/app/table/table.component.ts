@@ -11,7 +11,7 @@ import {
 import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 import { map, pairwise, filter, throttleTime } from "rxjs/operators";
 import {fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: "app-table",
