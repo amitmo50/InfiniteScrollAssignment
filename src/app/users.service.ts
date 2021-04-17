@@ -27,14 +27,14 @@ export class UsersService {
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
-  getFilteredData(page: number, searchWord: string): Observable<any> {
-    while(page <= 4){
-      this.getAll(page, 20).subscribe(res => this.data = this.data.concat(res.data.filter((user: any) => user.firstName.toLowerCase().includes(searchWord))));
-      page += 1;
-    }
-    return this.data;
+  getFilteredData(page: number, searchWord: string){
+      return this.httpClient.get<any>(`https://dummyapi.io/data/api/user?limit=50&page=${page}`, 
+      {headers: {'app-id': environment.appId}}).pipe(
+      retry(1),
+      catchError(this.handleError)
+      );
   }
-
+  // Get all users from api by page 
   getAll(page: number, limit = 20): Observable<any>{
     return this.httpClient.get<any>(`https://dummyapi.io/data/api/user?limit=${limit}&page=${page}`, 
     {headers: {'app-id': environment.appId}}).pipe(

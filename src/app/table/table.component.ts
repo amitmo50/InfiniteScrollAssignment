@@ -6,11 +6,11 @@ import {
   ViewChild,
   AfterViewInit,
   NgZone,
-  ElementRef
+  ElementRef,
 } from "@angular/core";
 import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 import { map, pairwise, filter, throttleTime } from "rxjs/operators";
-import {fromEvent } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
@@ -31,6 +31,8 @@ export class TableComponent implements OnInit, AfterViewInit {
   page: number;
   limit: number;
   loading: boolean;
+
+
  
   // initial ngZone variable to run the fetch data after detect that scrolled has been performed
   // initial UsersService variable to perform http request to server to fetch the data
@@ -46,10 +48,12 @@ export class TableComponent implements OnInit, AfterViewInit {
     // Load initial fetch of the first 20 user from server
     this.fetchMore();
     this.loading = false;
+    
   }
 
   // indicate if the user scrolled to the bottom of the page to run fetch data of the next page
   ngAfterViewInit(): void {
+
     this.scroller
       .elementScrolled()
       .pipe(
@@ -68,21 +72,29 @@ export class TableComponent implements OnInit, AfterViewInit {
             this.input.nativeElement.value === "" ? this.fetchMore() :null;
           });
       });
+
       // Perform a Debounce to fetch data efficiently from server
       fromEvent(this.input.nativeElement,'keyup')
         .pipe(
           map((event: any) => {
               return event.target.value;
             }),
-            filter(Boolean),
-            debounceTime(1500),
+            filter(res => res !== ""),
+            debounceTime(1000),
             distinctUntilChanged(),
         )
         .subscribe((text: any) => {
-          console.log(text);
-          this.listItems = this.usersService.getFilteredData(0, text);
+          this.usersService.getFilteredData(0, text).subscribe(res => this.listItems = res.data.filter((user: any) => user.firstName.toLowerCase().includes(text)));
+          this.usersService.getFilteredData(1, text).subscribe(res => this.listItems.concat(res.data.filter((user: any) => user.firstName.toLowerCase().includes(text))));
         });
-      
+        fromEvent(this.input.nativeElement,'onchange').pipe(
+          map((event: any) => {
+              return event.target.value;
+            }),
+            filter(res => res !== ""),
+            debounceTime(1000),
+            distinctUntilChanged(),
+        )
   }
 
   // Fetch data from server
@@ -99,6 +111,6 @@ export class TableComponent implements OnInit, AfterViewInit {
         }
     });
     this.page += 1;
-
+    
   }
 }

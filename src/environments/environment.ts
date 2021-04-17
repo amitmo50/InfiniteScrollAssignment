@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  appId: '607b1d95e3e65a83b38383ef',
-  // appId: '6076afc01ea2938e132d8835'
+  appId: '607b4c1441dd3625a47059d7',
 };
 
