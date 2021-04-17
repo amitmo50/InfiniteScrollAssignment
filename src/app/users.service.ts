@@ -27,7 +27,7 @@ export class UsersService {
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
-  getFilteredData(page: number, searchWord: string){
+  getDataToFilter(page: number, searchWord: string){
       return this.httpClient.get<any>(`https://dummyapi.io/data/api/user?limit=50&page=${page}`, 
       {headers: {'app-id': environment.appId}}).pipe(
       retry(1),

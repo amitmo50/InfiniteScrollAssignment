@@ -77,27 +77,41 @@ export class TableComponent implements OnInit, AfterViewInit {
       fromEvent(this.input.nativeElement,'keyup')
         .pipe(
           map((event: any) => {
-              return event.target.value;
+            return event.target.value;
             }),
             filter(res => res !== ""),
             debounceTime(1000),
             distinctUntilChanged(),
         )
         .subscribe((text: any) => {
-          this.usersService.getFilteredData(0, text).subscribe(res => this.listItems = res.data.filter((user: any) => user.firstName.toLowerCase().includes(text)));
-          this.usersService.getFilteredData(1, text).subscribe(res => this.listItems.concat(res.data.filter((user: any) => user.firstName.toLowerCase().includes(text))));
+          this.usersService.getDataToFilter(0, text).subscribe(res => this.listItems = res.data.filter((user: any) => user.firstName.toLowerCase().includes(text)));
+          this.usersService.getDataToFilter(1, text).subscribe(res => this.listItems.concat(res.data.filter((user: any) => user.firstName.toLowerCase().includes(text))));
         });
-        fromEvent(this.input.nativeElement,'onchange').pipe(
+
+      // Listen to Keyup to detect when the filter search bar is back to his initial state
+      fromEvent(this.input.nativeElement,'keyup')
+        .pipe(
           map((event: any) => {
-              return event.target.value;
+            if(event.target.value === ""){
+              this.fetchOriginData();
+            }
             }),
-            filter(res => res !== ""),
-            debounceTime(1000),
-            distinctUntilChanged(),
-        )
+        ).subscribe();
+      
+  }
+  // Fetch the initial data when reset the Filter search bar to ""
+  fetchOriginData(): void {
+    if(this.input.nativeElement.value === ""){
+      this.page = 0;
+   
+      this.usersService.getAll(this.page).subscribe(res => {
+        this.listItems = res.data;
+      })
+      this.page += 1;
+    }
   }
 
-  // Fetch data from server
+  // Fetch data from server for the scroll page
   fetchMore(): void {
     this.loading = true;
     this.usersService.getAll(this.page).subscribe(res => {
