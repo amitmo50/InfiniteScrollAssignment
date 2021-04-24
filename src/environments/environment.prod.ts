@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  appId: '607b4c1441dd3625a47059d7',
+  appId: '6076afc01ea2938e132d8835',
 };
 
