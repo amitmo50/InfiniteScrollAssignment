@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { UsersService } from '../users.service';
 import {
   Component,
@@ -6,12 +7,10 @@ import {
   ViewChild,
   AfterViewInit,
   NgZone,
-  ElementRef,
 } from "@angular/core";
 import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 import { map, pairwise, filter, throttleTime } from "rxjs/operators";
-import { fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: "app-table",
@@ -24,8 +23,8 @@ export class TableComponent implements OnInit, AfterViewInit {
   // initial virtual scroll component of Angular 11
   @ViewChild("scroller")
   scroller!: CdkVirtualScrollViewport;
-  @ViewChild('input', { static: true })
-  input!: ElementRef;
+  // using FormControl to access the value of the search bar
+  input = new FormControl("");
   // initial variables
   listItems:any;
   page: number;
@@ -69,39 +68,36 @@ export class TableComponent implements OnInit, AfterViewInit {
       )
       .subscribe(() => {
           this.ngZone.run(() => {
-            this.input.nativeElement.value === "" ? this.fetchMore() :null;
+            this.input.value === "" ? this.fetchMore() :null;
           });
       });
-
-      // Perform a Debounce to fetch data efficiently from server
-      fromEvent(this.input.nativeElement,'keyup')
-        .pipe(
-          map((event: any) => {
-            return event.target.value;
-            }),
-            filter(res => res !== ""),
-            debounceTime(1000),
-            distinctUntilChanged(),
-        )
-        .subscribe((text: any) => {
-          this.usersService.getDataToFilter(0, text).subscribe(res => this.listItems = res.data.filter((user: any) => user.firstName.toLowerCase().includes(text)));
-          this.usersService.getDataToFilter(1, text).subscribe(res => this.listItems.concat(res.data.filter((user: any) => user.firstName.toLowerCase().includes(text))));
-        });
-
-      // Listen to Keyup to detect when the filter search bar is back to his initial state
-      fromEvent(this.input.nativeElement,'keyup')
-        .pipe(
-          map((event: any) => {
-            if(event.target.value === ""){
-              this.fetchOriginData();
-            }
-            }),
-        ).subscribe();
+      
+      this.input.valueChanges.pipe(
+        debounceTime(1000)
+      ).subscribe(
+        value => {
+          // Perform a Debounce to fetch data efficiently from server
+          if(value !== "") {
+            this.usersService.getDataToFilter().pipe(
+              map(res => {
+                const dataArr = res.map(item => item.data);
+                const mergedArr = [].concat.apply([], dataArr);
+                return mergedArr;
+              })
+            ).subscribe(res => {
+              this.listItems = res.filter((user: any) => user["firstName"].toLowerCase().includes(value));
+            })
+          } else {
+            // Listen to Keyup to detect when the filter search bar is back to his initial state
+            this.fetchOriginData();
+          }
+        }
+      )
       
   }
   // Fetch the initial data when reset the Filter search bar to ""
   fetchOriginData(): void {
-    if(this.input.nativeElement.value === ""){
+    if(this.input.value === ""){
       this.page = 0;
    
       this.usersService.getAll(this.page).subscribe(res => {
@@ -117,7 +113,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.usersService.getAll(this.page).subscribe(res => {
         if (res.data.length !== 0) {
           this.loading = false;     
-          if(this.input.nativeElement.value === ""){  
+          if(this.input.value === ""){  
             this.listItems = [...this.listItems, ...res.data];
           }
         } else {

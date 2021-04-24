@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 
 @Injectable({
@@ -14,7 +15,8 @@ import { Observable } from 'rxjs';
 export class UsersService {
 
   constructor(private httpClient: HttpClient) { }
-  data:any = []
+  data:Observable<any>[] = []
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
@@ -27,12 +29,11 @@ export class UsersService {
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
-  getDataToFilter(page: number, searchWord: string){
-      return this.httpClient.get<any>(`https://dummyapi.io/data/api/user?limit=50&page=${page}`, 
-      {headers: {'app-id': environment.appId}}).pipe(
-      retry(1),
-      catchError(this.handleError)
-      );
+  getDataToFilter(){
+      for(let i = 0; i <= 4; i++) {
+        this.data.push(this.getAll(i, 20));
+      }
+      return forkJoin(this.data);
   }
   // Get all users from api by page 
   getAll(page: number, limit = 20): Observable<any>{

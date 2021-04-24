@@ -15,7 +15,12 @@
         .sidebar-content {
             padding: 2rem 0 0 0;
             color: var(--text-color);
+            .active {
+                background-color: var(--selecedRouter-color);
+            }
         }
+       
+        
     }
     .content {
         font-size: 2rem;
@@ -29,9 +34,9 @@
         font-size: 2.5rem;
         font-family: 'Lobster', cursive;
         &:hover {
-            color: rgba(64, 89, 228, 0.808)
+            color: var(--hover-color);
         }
     }
    
-    
 }
+

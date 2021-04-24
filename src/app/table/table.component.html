@@ -1,6 +1,6 @@
 <div class="table-display">
   <div class="input-container">
-    <input class="search-input" #input placeholder="Search By First Name" type="text"/>
+    <input class="search-input" [formControl]="input" placeholder="Search By First Name" type="text"/>
   </div>
   <cdk-virtual-scroll-viewport #scroller itemSize="72" class="content">
     <div class="table-container">

@@ -6,6 +6,8 @@ export const darkTheme = {
   'text-color': '#fff',
   'card-color': 'rgba(119, 119, 153, 0.712)',
   'border-color': '#fff',
+  'selecedRouter-color': '#6954c5',
+  'hover-color': '#0fa7ee',
 };
 
 export const lightTheme = {
@@ -14,6 +16,8 @@ export const lightTheme = {
   'text-color': '#2d2d2d',
   'card-color': 'rgba(208, 208, 231, 0.712)',
   'border-color': '#000',
+  'selecedRouter-color': '#7e3fe480',
+  'hover-color': '#fff',
 };
 
 @Injectable({ providedIn: 'root' })
