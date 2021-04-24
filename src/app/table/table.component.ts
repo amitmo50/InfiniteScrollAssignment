@@ -73,7 +73,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       });
       
       this.input.valueChanges.pipe(
-        debounceTime(1000)
+        debounceTime(500)
       ).subscribe(
         value => {
           // Perform a Debounce to fetch data efficiently from server
